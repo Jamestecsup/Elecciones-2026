@@ -15,7 +15,7 @@ Esta es una página web informativa e interactiva sobre las Elecciones Generales
    Si lo descargaste como ZIP, descomprímelo en cualquier carpeta de tu computadora.
 
 3. **Ejecuta la página web**  
-   Abre el archivo `index.html` haciendo doble clic o ábrelo directamente en tu navegador web favorito (Chrome, Firefox, Edge, etc.).
+   Abre los archivos haciendo doble clic o ábrelo directamente en tu navegador web favorito (Chrome, Firefox, Edge, etc.).
 
    > ⚠️ No se necesita instalación ni conexión a servidor, ya que es una página web estática.
 
@@ -27,7 +27,8 @@ Elecciones-2026/
 ├── candidatos.html       # Página Informativa de los candidatos 
 ├── informacion.html    # informacion de la página
 ├── formulario.html   # Página de votacion
-└── propuestas.html # Página de las propuestas de los candidatos
+├── propuestas.html # Página de las propuestas de los candidatos
+└── Votaciones figma final #pagina de referencia hecha en figma
 ```
 
 ## 👨‍💻 Para desarrolladores

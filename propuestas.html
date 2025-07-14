@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuestas de Candidatos 2024</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --border-radius: 8px;
+            --box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        h1{
+            color: #000000;
+            margin-bottom: 1rem;
+        } 
+        h2, h3 {
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        h1 { font-size: 2.2rem; }
+        h2 { font-size: 1.8rem; }
+        h3 { font-size: 1.4rem; }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 15px;
+        }
+
+        /* Header del primer código (sin cambios) */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-bottom: 1rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+            
+            nav ul li {
+                margin-left: 0;
+            }
+        }
+
+        /* Resto del CSS original del segundo código */
+        .filter-container {
+            display: flex;
+            gap: 15px;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .filter-dropdown {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-dropdown select {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            box-shadow: var(--box-shadow);
+            background-color: white;
+        }
+
+        .proposals-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .candidate-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+
+        .candidate-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .candidate-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+            margin-right: 1.5rem;
+        }
+
+        .candidate-info {
+            flex: 1;
+        }
+
+        .candidate-name {
+            font-size: 1.4rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .candidate-party {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .candidate-stats {
+            text-align: right;
+        }
+
+        .popularity {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .trending {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            font-size: 0.9rem;
+        }
+
+        .trending svg {
+            margin-right: 5px;
+        }
+
+        .proposals-list {
+            padding: 1.5rem;
+        }
+
+        .proposal-category {
+            margin-bottom: 2rem;
+        }
+
+        .proposal-category h3 {
+            border-bottom: 2px solid var(--light-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .proposal-item {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            border-left: 3px solid var(--light-color);
+            transition: var(--transition);
+        }
+
+        .proposal-item:hover {
+            border-left-color: var(--secondary-color);
+        }
+
+        .proposal-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .proposal-title .icon {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+
+        .proposal-desc {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: var(--light-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .candidate-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .candidate-img {
+                margin: 0 auto 1rem;
+            }
+            
+            .candidate-stats {
+                text-align: center;
+                margin-top: 1rem;
+            }
+            
+            .trending {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header del primer código (sin cambios) -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">Elecciones Perú 2026</div>
+            <nav>
+                <ul>
+                    <li><a href="candidatos.html">Candidatos</a></li>
+                    <li><a href="estadisticas.html">Estadísticas</a></li>
+                    <li><a href="propuestas.html">Propuestas</a></li>
+                    <li><a href="informacion.html">Información</a></li>
+                    <li><a href="formulario.html">Formulario</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+        <h1>Propuestas de los Candidatos</h1>
+        <p>Compara las propuestas de cada candidato por área temática.</p>
+        
+        <div class="filter-container">
+            <div class="filter-dropdown">
+                <select id="candidate-filter">
+                    <option value="all">Todos los candidatos</option>
+                    <option value="1">Alfonso López Chau</option>
+                    <option value="2">Rafael López Aliaga</option>
+                    <option value="3">Martin Vizcarra Cornejo</option>
+                    <option value="4">Keiko Fujimor</option>
+                </select>
+            </div>
+            <div class="filter-dropdown">
+                <select id="category-filter">
+                    <option value="all">Todas las áreas</option>
+                    <option value="economy">Economía</option>
+                    <option value="education">Educación</option>
+                    <option value="health">Salud</option>
+                    <option value="security">Seguridad</option>
+                    <option value="environment">Medio Ambiente</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="proposals-container" id="proposals-container">
+            <!-- Propuestas se cargarán aquí -->
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Plataforma Electoral</h3>
+                    <ul>
+                        <li><a href="#">Acerca de</a></li>
+                        <li><a href="#">Metodología</a></li>
+                        <li><a href="#">Equipo</a></li>
+                        <li><a href="#">Trabaja con nosotros</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Recursos</h3>
+                    <ul>
+                        <li><a href="#">Guía para votantes</a></li>
+                        <li><a href="#">Calendario electoral</a></li>
+                        <li><a href="#">Resultados históricos</a></li>
+                        <li><a href="#">Glosario</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Términos de uso</a></li>
+                        <li><a href="#">Política de privacidad</a></li>
+                        <li><a href="#">Uso de datos</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li><a href="mailto:info@plataformaelectoral.org">info@plataformaelectoral.org</a></li>
+                        <li><a href="#">Reportar error</a></li>
+                        <li><a href="#">Prensa</a></li>
+                        <li>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-facebook"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2024 Plataforma Electoral Independiente. Todos los derechos reservados.</p>
+                <p>Este es un proyecto sin fines de lucro dedicado a promover el voto informado.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Datos completos de propuestas por candidato
+        const proposalsData = [
+            {
+                id: 1,
+                name: "Alfonso López Chau",
+                party: "Ahora Nación",
+                photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7naV15EphvbEJHhay6EkTXwqtMU7JgFvW3Q&s",
+                popularity: 42,
+                trend: 2.1,
+                trendUp: true,
+                proposals: {
+                    economy: [
+                        {
+                            title: "Reducción de impuestos para PYMEs",
+                            description: "Implementaremos una reducción gradual del 15% en impuestos para pequeñas y medianas empresas durante los primeros 3 años de gobierno."
+                        },
+                        {
+                            title: "Inversión en infraestructura",
+                            description: "Plan de $20,000 millones para modernizar carreteras, puertos y aeropuertos, generando 500,000 empleos directos."
+                        }
+                    ],
+                    education: [
+                        {
+                            title: "Reforma educativa integral",
+                            description: "Transformación curricular con enfoque en habilidades digitales y pensamiento crítico, capacitación docente obligatoria."
+                        },
+                        {
+                            title: "Universidad gratuita para destacados",
+                            description: "Becas del 100% en universidades públicas para estudiantes con promedio superior a 8.5 en educación media."
+                        }
+                    ],
+                    health: [
+                        {
+                            title: "Medicamentos genéricos",
+                            description: "Ley que obliga a farmacias a disponer de al menos un 40% de medicamentos genéricos con precios regulados."
+                        }
+                    ],
+                    security: [
+                        {
+                            title: "Policía comunitaria",
+                            description: "Programa de vinculación entre policías y comunidades con patrullaje conjunto y oficinas locales de denuncia."
+                        }
+                    ],
+                    environment: [
+                        {
+                            title: "Energías renovables",
+                            description: "Inversión de $5,000 millones en parques eólicos y solares para alcanzar 40% de energía limpia para 2030."
+                        }
+                    ]
+                }
+            },
+            {
+                id: 2,
+                name: "Rafael López Aliaga",
+                party: "Renovación Popular", 
+                photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4LpXwhRzYSQ3bAc24bY5SSzStQi-kYE14DQ&s",
+                popularity: 38,
+                trend: 1.3,
+                trendUp: true,
+                proposals: {
+                    economy: [
+                        {
+                            title: "Salario mínimo digno",
+                            description: "Incremento gradual del salario mínimo hasta alcanzar el equivalente a 2 canastas básicas en 4 años."
+                        }
+                    ],
+                    education: [
+                        {
+                            title: "Jornada escolar extendida",
+                            description: "Implementación progresiva de jornada escolar de 8 horas con actividades culturales y deportivas incluidas."
+                        }
+                    ],
+                    health: [
+                        {
+                            title: "Universalización de la salud",
+                            description: "Sistema único de salud que integre todos los servicios públicos y privados bajo una misma cobertura básica."
+                        },
+                        {
+                            title: "Hospitales modelo",
+                            description: "Construcción de 50 nuevos hospitales con equipamiento de última generación en zonas marginadas."
+                        }
+                    ],
+                    security: [
+                        {
+                            title: "Seguridad con enfoque comunitario",
+                            description: "Prevención del delito mediante programas sociales en zonas de alta incidencia con participación vecinal."
+                        },
+                        {
+                            title: "Rehabilitación penitenciaria",
+                            description: "Reforma al sistema penitenciario con talleres laborales y educación superior en prisiones."
+                        }
+                    ],
+                    environment: [
+                        {
+                            title: "Agua potable para todos",
+                            description: "Inversión en plantas de tratamiento y redes de distribución para cobertura total en zonas urbanas."
+                        }
+                    ]
+                }
+            },
+            {
+                id: 3,
+                name: "Martín Vizcarra Cornejo", 
+                party: "Perú Primero", 
+                photo: "https://www.euroamerica.org/wp-content/uploads/2018/05/Mart%C3%ADn-Vizcarra.jpg",
+                popularity: 15,
+                trend: 0.8,
+                trendUp: false,
+                proposals: {
+                    economy: [
+                        {
+                            title: "Reforma fiscal pro-empresarial",
+                            description: "Reducción del ISR para grandes empresas del 30% al 22% y simplificación de trámites fiscales."
+                        },
+                        {
+                            title: "Flexibilización laboral",
+                            description: "Reforma a la ley laboral para permitir contratos por hora y períodos de prueba extendidos."
+                        }
+                    ],
+                    education: [
+                        {
+                            title: "Valores tradicionales en educación",
+                            description: "Inclusión de educación en valores familiares y patrióticos en el currículo escolar básico."
+                        }
+                    ],
+                    health: [
+                        {
+                            title: "Seguro de salud voluntario",
+                            description: "Sustitución del sistema público obligatorio por subsidios para seguros privados elegibles."
+                        }
+                    ],
+                    security: [
+                        {
+                            title: "Fortalecimiento de la policía",
+                            description: "Duplicar el presupuesto para equipamiento policial y aumentar un 30% los efectivos en calle."
+                        },
+                        {
+                            title: "Tolerancia cero",
+                            description: "Penas más severas para delitos menores y ampliación de facultades policiales para detenciones."
+                        }
+                    ],
+                    environment: [
+                        {
+                            title: "Balance ecológico",
+                            description: "Promover regulaciones que no afecten el crecimiento económico mientras se protegen áreas clave."
+                        }
+                    ]
+                }
+            },
+            {
+                id: 4,
+                name: "Keiko Fujimori", 
+                party: "Fuerza Popular", 
+                photo: "https://alba-pe-atv.cdn.mediatiquepress.com/wp-content/uploads/2025/04/keiko-fujimori-youtuber.jpg",
+                popularity: 5,
+                trend: 0.5,
+                trendUp: true,
+                proposals: {
+                    economy: [
+                        {
+                            title: "Impuestos a la contaminación",
+                            description: "Gravar con un 5% adicional a empresas con altas emisiones de carbono y residuos tóxicos."
+                        },
+                        {
+                            title: "Economía circular",
+                            description: "Subsidios para empresas que implementen sistemas de reutilización total de materiales."
+                        }
+                    ],
+                    education: [
+                        {
+                            title: "Educación ambiental obligatoria",
+                            description: "Incorporar en todos los niveles educativos materias sobre sostenibilidad y cambio climático."
+                        }
+                    ],
+                    health: [
+                        {
+                            title: "Prevención ecológica",
+                            description: "Programas de salud preventiva basados en reducción de contaminantes ambientales en comunidades."
+                        }
+                    ],
+                    security: [
+                        {
+                            title: "Delitos ambientales",
+                            description: "Creación de fiscalía especial para delitos contra el medio ambiente con penas de prisión efectiva."
+                        }
+                    ],
+                    environment: [
+                        {
+                            title: "Cero emisiones para 2040",
+                            description: "Plan nacional para eliminar combustibles fósiles en generación eléctrica y transporte público."
+                        },
+                        {
+                            title: "Protección de áreas naturales",
+                            description: "Triplicar el presupuesto para protección de reservas y crear 20 nuevas áreas protegidas."
+                        }
+                    ]
+                }
+            }
+        ];
+
+        // Función para renderizar propuestas
+        function renderProposals(candidateId = 'all', category = 'all') {
+            const container = document.getElementById('proposals-container');
+            container.innerHTML = '';
+            
+            let candidatesToShow = [];
+            
+            if (candidateId === 'all') {
+                candidatesToShow = proposalsData;
+            } else {
+                candidatesToShow = proposalsData.filter(c => c.id.toString() === candidateId);
+            }
+            
+            if (candidatesToShow.length === 0) {
+                container.innerHTML = '<p>No se encontraron candidatos que coincidan con los filtros seleccionados.</p>';
+                return;
+            }
+            
+            candidatesToShow.forEach(candidate => {
+                const candidateElement = document.createElement('div');
+                candidateElement.className = 'candidate-section';
+                
+                // Crear encabezado del candidato
+                let headerHTML = `
+                    <div class="candidate-header">
+                        <img src="${candidate.photo}" alt="${candidate.name}" class="candidate-img">
+                        <div class="candidate-info">
+                            <h2 class="candidate-name">${candidate.name}</h2>
+                            <div class="candidate-party">${candidate.party}</div>
+                        </div>
+                        <div class="candidate-stats">
+                            <div class="popularity">${candidate.popularity}%</div>
+                            <div class="trending ${candidate.trendUp ? '' : 'down'}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="${candidate.trendUp ? 'M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z' : 'M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z'}"/>
+                                </svg>
+                                ${candidate.trend}% (última semana)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="proposals-list">
+                `;
+                
+                // Crear lista de propuestas por categoría
+                const categories = {
+                    economy: "Economía",
+                    education: "Educación",
+                    health: "Salud",
+                    security: "Seguridad",
+                    environment: "Medio Ambiente"
+                };
+                
+                let hasProposals = false;
+                
+                for (const [catKey, catName] of Object.entries(categories)) {
+                    if ((category === 'all' || category === catKey) && 
+                        candidate.proposals[catKey] && 
+                        candidate.proposals[catKey].length > 0) {
+                        
+                        hasProposals = true;
+                        
+                        headerHTML += `
+                            <div class="proposal-category">
+                                <h3>${catName}</h3>
+                        `;
+                        
+                        candidate.proposals[catKey].forEach(proposal => {
+                            headerHTML += `
+                                <div class="proposal-item">
+                                    <div class="proposal-title">
+                                        <span class="icon">✓</span>
+                                        <span>${proposal.title}</span>
+                                    </div>
+                                    <div class="proposal-desc">${proposal.description}</div>
+                                </div>
+                            `;
+                        });
+                        
+                        headerHTML += `</div>`;
+                    }
+                }
+                
+                headerHTML += `</div>`; // Cierre de proposals-list
+                
+                if (hasProposals || category === 'all') {
+                    candidateElement.innerHTML = headerHTML;
+                    container.appendChild(candidateElement);
+                }
+            });
+            
+            if (container.innerHTML === '') {
+                container.innerHTML = '<p>No se encontraron propuestas que coincidan con los filtros seleccionados.</p>';
+            }
+        }
+
+        // Configurar filtros
+        function setupFilters() {
+            const candidateFilter = document.getElementById('candidate-filter');
+            const categoryFilter = document.getElementById('category-filter');
+            
+            candidateFilter.addEventListener('change', () => {
+                renderProposals(candidateFilter.value, categoryFilter.value);
+            });
+            
+            categoryFilter.addEventListener('change', () => {
+                renderProposals(candidateFilter.value, categoryFilter.value);
+            });
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProposals();
+            setupFilters();
+        });
+    </script>
+</body>
+</html>

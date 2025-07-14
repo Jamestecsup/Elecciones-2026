@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información sobre la Plataforma Electoral 2024</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+            --border-radius: 8px;
+            --box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; margin-top: 2.5rem; }
+        h3 { font-size: 1.5rem; margin-top: 2rem; }
+        h4 { font-size: 1.2rem; margin-top: 1.5rem; }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 15px;
+        }
+
+        /* Header del primer código (sin cambios) */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-bottom: 1rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+            
+            nav ul li {
+                margin-left: 0;
+            }
+        }
+
+        /* Resto del CSS original de la página de información */
+        .info-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .info-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .info-card h2 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--light-color);
+            padding-bottom: 0.8rem;
+        }
+
+        .feature-list {
+            margin: 1.5rem 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .feature-icon {
+            background-color: var(--secondary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+            font-size: 1.2rem;
+        }
+
+        .feature-content {
+            flex: 1;
+        }
+
+        .step-by-step {
+            margin: 2rem 0;
+            counter-reset: step-counter;
+        }
+
+        .step {
+            position: relative;
+            padding-left: 70px;
+            margin-bottom: 2rem;
+            min-height: 50px;
+        }
+
+        .step:before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 50px;
+            height: 50px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .data-sources {
+            margin: 2rem 0;
+        }
+
+        .source-item {
+            display: flex;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: rgba(52, 152, 219, 0.1);
+            border-radius: var(--border-radius);
+        }
+
+        .source-icon {
+            margin-right: 1rem;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1.5rem;
+        }
+
+        .faq-question {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .team-member {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .member-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 3px solid var(--secondary-color);
+        }
+
+        .cta-section {
+            text-align: center;
+            margin: 3rem 0;
+            padding: 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: var(--border-radius);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: var(--border-radius);
+            font-weight: bold;
+            margin-top: 1.5rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+        }
+
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: var(--light-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.7rem; }
+            
+            .feature-item {
+                flex-direction: column;
+            }
+            
+            .feature-icon {
+                margin-bottom: 1rem;
+            }
+            
+            .step {
+                padding-left: 0;
+                padding-top: 60px;
+            }
+            
+            .step:before {
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header del primer código (sin cambios) -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">Elecciones Perú 2026</div>
+            <nav>
+                <ul>
+                    <li><a href="candidatos.html">Candidatos</a></li>
+                    <li><a href="estadisticas.html">Estadísticas</a></li>
+                    <li><a href="propuestas.html">Propuestas</a></li>
+                    <li><a href="informacion.html">Información</a></li>
+                    <li><a href="formulario.html">Formulario</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Banner informativo original (modificado para no duplicar el header) -->
+    <div class="info-header">
+        <div class="container">
+            <p class="tagline">Transparencia, información verificada y herramientas para una decisión electoral informada</p>
+        </div>
+    </div>
+    
+    <main class="container">
+        <div class="info-card">
+            <h2>¿Qué es esta plataforma?</h2>
+            <p>Esta plataforma es una herramienta independiente y sin afiliación política cuyo objetivo es proporcionar a los ciudadanos información clara, verificada y actualizada sobre el proceso electoral 2024. Nuestra misión es promover el voto informado y la participación democrática.</p>
+            
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Información Centralizada</h3>
+                        <p>Reunimos en un solo lugar todos los datos relevantes sobre los candidatos, sus propuestas y el proceso electoral.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Datos Verificados</h3>
+                        <p>Toda la información pasa por un riguroso proceso de verificación con fuentes oficiales y múltiples contrastes.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Análisis Objetivo</h3>
+                        <p>Presentamos datos estadísticos y tendencias sin interpretaciones partidistas para que formes tu propio criterio.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Accesible para Todos</h3>
+                        <p>Diseño responsive que funciona perfectamente en computadoras, tablets y teléfonos móviles.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-card">
+            <h2>¿Cómo usar esta plataforma?</h2>
+            <p>Sigue estos pasos para aprovechar al máximo todas las funcionalidades que ofrecemos:</p>
+            
+            <div class="step-by-step">
+                <div class="step">
+                    <h3>Explora los candidatos</h3>
+                    <p>Visita la sección de candidatos para conocer su perfil, trayectoria política y datos biográficos relevantes. Puedes filtrar por partido político o buscar por nombre.</p>
+                </div>
+                
+                <div class="step">
+                    <h3>Compara propuestas</h3>
+                    <p>En la sección de propuestas puedes filtrar por áreas temáticas (economía, educación, salud, etc.) y ver lado a lado lo que ofrece cada candidato en cada tema.</p>
+                </div>
+                
+                <div class="step">
+                    <h3>Analiza las estadísticas</h3>
+                    <p>Consulta las tendencias en encuestas de popularidad, participación electoral histórica y otros datos estadísticos relevantes para el proceso electoral.</p>
+                </div>
+                
+                <div class="step">
+                    <h3>Prepara tu voto</h3>
+                    <p>Utiliza nuestras herramientas interactivas para identificar qué candidato se alinea mejor con tus prioridades y valores políticos.</p>
+                </div>
+                
+                <div class="step">
+                    <h3>Comparte responsablemente</h3>
+                    <p>Ayúdanos a combatir la desinformación compartiendo solo datos verificados. Todas nuestras páginas tienen botones para compartir en redes sociales.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-card">
+            <h2>Nuestras fuentes de información</h2>
+            <p>Nos comprometemos a utilizar solo fuentes confiables y verificables. Estos son nuestros principales proveedores de datos:</p>
+            
+            <div class="data-sources">
+                <div class="source-item">
+                    <div class="source-icon">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <div>
+                        <h4>Órgano Electoral Oficial</h4>
+                        <p>Datos oficiales sobre candidaturas registradas, calendario electoral y resultados históricos.</p>
+                    </div>
+                </div>
+                
+                <div class="source-item">
+                    <div class="source-icon">
+                        <i class="fas fa-poll"></i>
+                    </div>
+                    <div>
+                        <h4>Encuestadoras Certificadas</h4>
+                        <p>Resultados de las principales empresas de encuestas con metodologías transparentes y reconocidas.</p>
+                    </div>
+                </div>
+                
+                <div class="source-item">
+                    <div class="source-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div>
+                        <h4>Planes de Gobierno</h4>
+                        <p>Documentos oficiales presentados por cada candidatura ante el órgano electoral correspondiente.</p>
+                    </div>
+                </div>
+                
+                <div class="source-item">
+                    <div class="source-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <div>
+                        <h4>Medios de Verificación</h4>
+                        <p>Alianzas con organizaciones de fact-checking para verificar declaraciones y propuestas.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="update-notice"><strong>Actualización:</strong> Todos los datos se actualizan automáticamente cada 24 horas y las encuestas se actualizan semanalmente.</p>
+        </div>
+        
+        <div class="info-card">
+            <h2>Preguntas Frecuentes</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">¿Tienen alguna afiliación política?</div>
+                <p>No. Somos una plataforma independiente sin afiliación a partido, candidato o movimiento político alguno. Nuestro compromiso es exclusivamente con la información verificada y la transparencia electoral.</p>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">¿Cómo se financian?</div>
+                <p>Operamos gracias a donaciones de organizaciones de la sociedad civil comprometidas con la democracia y fondos de cooperación internacional para el desarrollo democrático. No aceptamos financiamiento de partidos políticos o gobiernos.</p>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">¿Puedo confiar en los datos de las encuestas?</div>
+                <p>Solo incluimos encuestas de empresas con metodologías transparentes y reconocidas. Cada dato incluye su fuente y fecha de realización para que puedas evaluar su vigencia. Además, mostramos tendencias en lugar de datos aislados.</p>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">¿Qué hago si encuentro un error en la información?</div>
+                <p>Puedes reportarlo inmediatamente a través de nuestro formulario de contacto o enviando un correo a correcciones@plataformaelectoral.org. Todos los reportes son investigados y, de confirmarse el error, realizamos la corrección con una nota de actualización.</p>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">¿Cómo puedo participar como voluntario?</div>
+                <p>Tenemos un programa de voluntariado para verificación de datos, traducción y difusión. Visita nuestra sección de "Únete" para más información sobre cómo participar.</p>
+            </div>
+        </div>
+        
+        
+        <div class="cta-section">
+            <h2>¡Empodera tu voto con información!</h2>
+            <p>Conoce a los candidatos, compara sus propuestas y toma la mejor decisión en las elecciones 2024.</p>
+            <a href="#" class="cta-button">Ver Candidatos</a>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Plataforma Electoral</h3>
+                    <ul>
+                        <li><a href="#">Acerca de</a></li>
+                        <li><a href="#">Metodología</a></li>
+                        <li><a href="#">Equipo</a></li>
+                        <li><a href="#">Trabaja con nosotros</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Recursos</h3>
+                    <ul>
+                        <li><a href="#">Guía para votantes</a></li>
+                        <li><a href="#">Calendario electoral</a></li>
+                        <li><a href="#">Resultados históricos</a></li>
+                        <li><a href="#">Glosario</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Términos de uso</a></li>
+                        <li><a href="#">Política de privacidad</a></li>
+                        <li><a href="#">Uso de datos</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li><a href="mailto:info@plataformaelectoral.org">info@plataformaelectoral.org</a></li>
+                        <li><a href="#">Reportar error</a></li>
+                        <li><a href="#">Prensa</a></li>
+                        <li>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-facebook"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2024 Plataforma Electoral Independiente. Todos los derechos reservados.</p>
+                <p>Este es un proyecto sin fines de lucro dedicado a promover el voto informado.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

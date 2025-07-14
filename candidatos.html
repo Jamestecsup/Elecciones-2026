@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidatos Presidenciales 2026</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .navbar {
+            background-color: var(--primary-color) !important;
+        }
+
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+
+        .search-container {
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+
+        .candidate-card {
+            border: none;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .candidate-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .candidate-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .candidate-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            margin: 0 auto 1rem;
+        }
+
+        .candidate-party {
+            display: inline-block;
+            background-color: rgba(255,255,255,0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .popularity {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .trending {
+            display: flex;
+            align-items: center;
+            color: var(--success-color);
+            font-weight: 500;
+        }
+
+        .trending.down {
+            color: var(--accent-color);
+        }
+
+        .proposal-list {
+            list-style-position: inside;
+        }
+
+        .proposal-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-candidate {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-candidate:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: var(--light-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Elecciones Perú 2026</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="candidatos.html">Candidatos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="estadisticas.html">Estadísticas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="propuestas.html">Propuestas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="informacion.html">Información</a></li>
+                    <li class="nav-item"><a class="nav-link" href="formulario.html">Formulario</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="container my-4">
+        <h1 class="mb-3">Candidatos Presidenciales</h1>
+        <p class="lead mb-4">Conoce a todos los candidatos, sus propuestas y su posición en las encuestas.</p>
+        
+        <div class="search-container">
+            <div class="input-group">
+                <span class="input-group-text search-icon"><i class="fas fa-search"></i></span>
+                <input type="text" class="form-control form-control-lg" id="searchInput" placeholder="Buscar candidato o partido...">
+            </div>
+        </div>
+        
+        <div class="row g-4" id="candidates-container">
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Plataforma Electoral</h3>
+                    <ul>
+                        <li><a href="#">Acerca de</a></li>
+                        <li><a href="#">Metodología</a></li>
+                        <li><a href="#">Equipo</a></li>
+                        <li><a href="#">Trabaja con nosotros</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Recursos</h3>
+                    <ul>
+                        <li><a href="#">Guía para votantes</a></li>
+                        <li><a href="#">Calendario electoral</a></li>
+                        <li><a href="#">Resultados históricos</a></li>
+                        <li><a href="#">Glosario</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Términos de uso</a></li>
+                        <li><a href="#">Política de privacidad</a></li>
+                        <li><a href="#">Uso de datos</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li><a href="mailto:info@plataformaelectoral.org">info@plataformaelectoral.org</a></li>
+                        <li><a href="#">Reportar error</a></li>
+                        <li><a href="#">Prensa</a></li>
+                        <li>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-facebook"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2024 Plataforma Electoral Independiente. Todos los derechos reservados.</p>
+                <p>Este es un proyecto sin fines de lucro dedicado a promover el voto informado.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const candidatesData = [
+            { 
+                id: 1,
+                name: "Alfonso López Chau", 
+                party: "Ahora Nación", 
+                photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7naV15EphvbEJHhay6EkTXwqtMU7JgFvW3Q&s",
+                popularity: 42, 
+                trend: 2.1, 
+                trendUp: true,
+                proposals: [
+                    "Reforma educativa integral",
+                    "Inversión en energías renovables",
+                    "Reducción de impuestos",
+                    "Modernización del transporte "
+                ],
+                website: "https://es.wikipedia.org/wiki/Alfonso_López-Chau",
+                social: {
+                    twitter: "https://x.com/lopezchau3?lang=es",
+                    facebook: "https://www.facebook.com/alfonsolopezchau/?locale=es_LA"
+                }
+            },
+            { 
+                id: 2,
+                name: "Keiko Fujimori", 
+                party: "Fuerza Popular", 
+                photo: "https://alba-pe-atv.cdn.mediatiquepress.com/wp-content/uploads/2025/04/keiko-fujimori-youtuber.jpg",
+                popularity: 38, 
+                trend: 1.3, 
+                trendUp: true,
+                proposals: [
+                    "Seguridad pública ",
+                    "Universalización de la salud",
+                    "Programas de empleo juvenil",
+                    "Igualdad de género "
+                ],
+                website: "https://es.wikipedia.org/wiki/Keiko_Fujimori",
+                social: {
+                    twitter: "https://x.com/KeikoFujimori?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor",
+                    facebook: "https://www.facebook.com/KeikoFujimoriOficial/"
+                }
+            },
+            { 
+                id: 3,
+                name: "Martin Vizcarra ", 
+                party: "Perú Primero", 
+                photo: "https://www.euroamerica.org/wp-content/uploads/2018/05/Mart%C3%ADn-Vizcarra.jpg",
+                popularity: 15, 
+                trend: 0.8, 
+                trendUp: false,
+                proposals: [
+                    "Fortalecimiento de la policía",
+                    "Reforma fiscal pro-empresarial",
+                    "Valores tradicionales en educación",
+                    "Reducción de la burocracia estatal"
+                ],
+                website: "https://es.wikipedia.org/wiki/Martín_Vizcarra",
+                social: {
+                    twitter: "https://x.com/MartinVizcarraC?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor",
+                    facebook: "https://www.facebook.com/MartinVizcarraC/?locale=es_LA"
+                }
+            },
+            { 
+                id: 4,
+                name: "Rafael López Aliaga", 
+                party: "Renovación Popular", 
+                photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4LpXwhRzYSQ3bAc24bY5SSzStQi-kYE14DQ&s",
+                popularity: 5, 
+                trend: 0.5, 
+                trendUp: true,
+                proposals: [
+                    "Economía circular y cero emisiones",
+                    "Educación ambiental obligatoria",
+                    "Impuestos a la contaminación",
+                    "Protección de áreas naturales"
+                ],
+                website: "https://es.wikipedia.org/wiki/Rafael_López_Aliaga",
+                social: {
+                    twitter: "https://x.com/rlopezaliaga1/?lang=da",
+                    facebook: "https://www.facebook.com/RafaelLopezAliagaOficial/?locale=es_LA"
+                }
+            }
+        ];
+
+        function renderCandidates(candidates) {
+            const container = document.getElementById('candidates-container');
+            container.innerHTML = '';
+            
+            if (candidates.length === 0) {
+                container.innerHTML = '<div class="col-12 text-center py-4"><h4>No se encontraron candidatos que coincidan con tu búsqueda.</h4></div>';
+                return;
+            }
+            
+            candidates.forEach(candidate => {
+                const candidateElement = document.createElement('div');
+                candidateElement.className = 'col-md-6 col-lg-3';
+                candidateElement.innerHTML = `
+                    <div class="candidate-card h-100">
+                        <div class="candidate-header">
+                            <img src="${candidate.photo}" alt="${candidate.name}" class="candidate-img">
+                            <h3 class="candidate-name">${candidate.name}</h3>
+                            <span class="candidate-party">${candidate.party}</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-3 pb-2 border-bottom">
+                                <div>
+                                    <div class="popularity">${candidate.popularity}%</div>
+                                    <small class="text-muted">En encuestas</small>
+                                </div>
+                                <div class="trending ${candidate.trendUp ? '' : 'down'}">
+                                    <i class="fas ${candidate.trendUp ? 'fa-arrow-up' : 'fa-arrow-down'} me-1"></i>
+                                    ${candidate.trend}%
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <h4 class="h5">Principales propuestas:</h4>
+                                <ul class="proposal-list">
+                                    ${candidate.proposals.map(prop => `<li>${prop}</li>`).join('')}
+                                </ul>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <a href="${candidate.website}" class="btn btn-candidate" target="_blank">
+                                    <i class="fas fa-globe me-1"></i> Sitio web
+                                </a>
+                                <div class="btn-group">
+                                    <a href="${candidate.social.twitter}" class="btn btn-candidate" target="_blank">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a href="${candidate.social.facebook}" class="btn btn-candidate" target="_blank">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(candidateElement);
+            });
+        }
+
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                const filteredCandidates = candidatesData.filter(candidate => 
+                    candidate.name.toLowerCase().includes(searchTerm) ||
+                    candidate.party.toLowerCase().includes(searchTerm)
+                );
+                
+                renderCandidates(filteredCandidates);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCandidates(candidatesData);
+            setupSearch();
+        });
+    </script>
+</body>
+</html>

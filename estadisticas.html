@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elecciones 2026 - Seguimiento de Candidatos</title>
+    <style>
+        /* Reset y variables CSS */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --border-radius: 8px;
+            --box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        /* Tipografía */
+        h1, h2, h3, h4 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 1.8rem; }
+        h3 { font-size: 1.4rem; }
+        h4 { font-size: 1.1rem; }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Layout */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header del primer código (sin cambios) */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-bottom: 1rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+            
+            nav ul li {
+                margin-left: 0;
+            }
+        }
+
+        /* Hero section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            color: white;
+        }
+
+        /* Search bar */
+        .search-container {
+            margin: 2rem auto;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            box-shadow: var(--box-shadow);
+            padding-left: 40px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+
+        /* Dashboard layout */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Cards */
+        .card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Stats card */
+        .stats-card h2 {
+            border-bottom: 2px solid var(--light-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .progress-container {
+            margin: 1.5rem 0;
+        }
+
+        .progress-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: var(--light-color);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 5px;
+            background-color: var(--secondary-color);
+            transition: width 0.5s ease;
+        }
+
+        /* Chart container */
+        .chart-container {
+            height: 250px;
+            margin-top: 1.5rem;
+            position: relative;
+        }
+
+        /* Candidate list */
+        .candidate {
+            display: flex;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+            transition: var(--transition);
+        }
+
+        .candidate:hover {
+            transform: translateY(-3px);
+        }
+
+        .candidate:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .candidate-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1.5rem;
+            border: 3px solid var(--secondary-color);
+        }
+
+        .candidate-info {
+            flex: 1;
+        }
+
+        .candidate-name {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .candidate-party {
+            display: inline-block;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .candidate-proposals h4 {
+            margin: 0.8rem 0 0.5rem;
+        }
+
+        .candidate-proposals ul {
+            margin-left: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .candidate-proposals li {
+            margin-bottom: 0.3rem;
+        }
+
+        .candidate-stats {
+            min-width: 150px;
+            text-align: right;
+        }
+
+        .popularity {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .trending {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            font-weight: 500;
+            color: var(--success-color);
+        }
+
+        .trending.down {
+            color: var(--accent-color);
+        }
+
+        .trending svg {
+            margin-right: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: var(--light-color);
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .candidate {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .candidate-img {
+                margin: 0 auto 1rem;
+            }
+
+            .candidate-info {
+                margin-bottom: 1rem;
+            }
+
+            .candidate-stats {
+                text-align: center;
+                width: 100%;
+            }
+
+            .trending {
+                justify-content: center;
+            }
+
+            .candidate-proposals ul {
+                margin-left: 0;
+                list-style-position: inside;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header del primer código (sin cambios) -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">Elecciones Perú 2026</div>
+            <nav>
+                <ul>
+                    <li><a href="candidatos.html">Candidatos</a></li>
+                    <li><a href="estadisticas.html">Estadísticas</a></li>
+                    <li><a href="propuestas.html">Propuestas</a></li>
+                    <li><a href="informacion.html">Información</a></li>
+                    <li><a href="formulario.html">Formulario</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Seguimiento Electoral en Tiempo Real</h1>
+            <p>Consulta información verificada sobre todos los candidatos presidenciales en Perú, sus propuestas y cómo van en las encuestas de popularidad.</p>
+        </div>
+    </section>
+    
+    <main class="container">
+        <div class="search-container">
+            <i class="search-icon">🔍</i>
+            <input type="text" class="search-bar" placeholder="Buscar candidato, partido o propuesta...">
+        </div>
+        
+        <div class="dashboard">
+            <div>
+                <div class="card stats-card" id="estadisticas">
+                    <h2>Estadísticas Nacionales</h2>
+                    <div class="progress-container">
+                        <div class="progress-title">
+                            <span>Participación electoral esperada</span>
+                            <span>72%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="72%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-title">
+                            <span>Votantes registrados</span>
+                            <span>27.3M</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="95%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-title">
+                            <span>Encuestas completadas</span>
+                            <span>1,452</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-width="68%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="nationalTrendChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>Próximos Eventos</h2>
+                    <div class="event-list">
+                        <div class="event">
+                            <h4>Debate Presidencial</h4>
+                            <p>12 de Abril, 20:00 hrs</p>
+                            <p>Canales nacionales en Perú</p>
+                        </div>
+                        <div class="event">
+                            <h4>Cierre de Campaña</h4>
+                            <p>12 de Mayo</p>
+                            <p>Plaza Central</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card candidate-list" id="candidatos">
+                <h2>Candidatos Presidenciales</h2>
+                <div id="candidates-container">
+                    <!-- Los candidatos se cargarán aquí dinámicamente -->
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Plataforma Electoral</h3>
+                    <ul>
+                        <li><a href="#">Acerca de</a></li>
+                        <li><a href="#">Metodología</a></li>
+                        <li><a href="#">Equipo</a></li>
+                        <li><a href="#">Trabaja con nosotros</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Recursos</h3>
+                    <ul>
+                        <li><a href="#">Guía para votantes</a></li>
+                        <li><a href="#">Calendario electoral</a></li>
+                        <li><a href="#">Resultados históricos</a></li>
+                        <li><a href="#">Glosario</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Términos de uso</a></li>
+                        <li><a href="#">Política de privacidad</a></li>
+                        <li><a href="#">Uso de datos</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li><a href="mailto:info@plataformaelectoral.org">info@plataformaelectoral.org</a></li>
+                        <li><a href="#">Reportar error</a></li>
+                        <li><a href="#">Prensa</a></li>
+                        <li>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-facebook"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2024 Plataforma Electoral Independiente. Todos los derechos reservados.</p>
+                <p>Este es un proyecto sin fines de lucro dedicado a promover el voto informado.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Datos de los candidatos
+        const candidatesData = [
+            { 
+                id: 1,
+                name: "Alfonso López Chau", 
+                party: "Ahora Nación", 
+                photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7naV15EphvbEJHhay6EkTXwqtMU7JgFvW3Q&s",
+                popularity: 42, 
+                trend: 2.1, 
+                trendUp: true,
+                proposals: [
+                    "Reforma educativa integral",
+                    "Inversión en energías renovables",
+                    "Reducción de impuestos para PYMEs",
+                    "Modernización del transporte público"
+                ],
+                history: [38, 40, 39, 42],
+                website: "#",
+                social: {
+                    twitter: "#",
+                    facebook: "#"
+                }
+            },
+            { 
+                id: 2,
+                name: "Rafael López Aliaga", 
+                party: "Renovación Popular", 
+                photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4LpXwhRzYSQ3bAc24bY5SSzStQi-kYE14DQ&s",
+                popularity: 38, 
+                trend: 1.3, 
+                trendUp: true,
+                proposals: [
+                    "Seguridad pública con enfoque comunitario",
+                    "Universalización de la salud",
+                    "Programas de empleo juvenil",
+                    "Igualdad de género en cargos públicos"
+                ],
+                history: [35, 36, 37, 38],
+                website: "#",
+                social: {
+                    twitter: "#",
+                    facebook: "#"
+                }
+            },
+            { 
+                id: 3,
+                name: "Martin Vizcarra", 
+                party: "Perú Primero", 
+                photo: "https://www.euroamerica.org/wp-content/uploads/2018/05/Mart%C3%ADn-Vizcarra.jpg",
+                popularity: 15, 
+                trend: 0.8, 
+                trendUp: false,
+                proposals: [
+                    "Fortalecimiento de la policía",
+                    "Reforma fiscal pro-empresarial",
+                    "Valores tradicionales en educación",
+                    "Reducción de la burocracia estatal"
+                ],
+                history: [18, 17, 16, 15],
+                website: "#",
+                social: {
+                    twitter: "#",
+                    facebook: "#"
+                }
+            },
+            { 
+                id: 4,
+                name: "Keiko Fujimori", 
+                party: "Fuerza Popular", 
+                photo: "https://alba-pe-atv.cdn.mediatiquepress.com/wp-content/uploads/2025/04/keiko-fujimori-youtuber.jpg",
+                popularity: 5, 
+                trend: 0.5, 
+                trendUp: true,
+                proposals: [
+                    "Economía circular y cero emisiones",
+                    "Educación ambiental obligatoria",
+                    "Impuestos a la contaminación",
+                    "Protección de áreas naturales"
+                ],
+                history: [4, 4.5, 4.8, 5],
+                website: "#",
+                social: {
+                    twitter: "#",
+                    facebook: "#"
+                }
+            }
+        ];
+
+        // Función para renderizar candidatos
+        function renderCandidates(candidates) {
+            const container = document.getElementById('candidates-container');
+            container.innerHTML = '';
+            
+            if (candidates.length === 0) {
+                container.innerHTML = '<p class="no-results">No se encontraron candidatos que coincidan con tu búsqueda.</p>';
+                return;
+            }
+            
+            candidates.forEach(candidate => {
+                const candidateElement = document.createElement('div');
+                candidateElement.className = 'candidate';
+                candidateElement.innerHTML = `
+                    <img src="${candidate.photo}" alt="${candidate.name}" class="candidate-img">
+                    <div class="candidate-info">
+                        <h3 class="candidate-name">${candidate.name}</h3>
+                        <span class="candidate-party">${candidate.party}</span>
+                        <div class="candidate-proposals">
+                            <h4>Principales propuestas:</h4>
+                            <ul>
+                                ${candidate.proposals.map(prop => `<li>${prop}</li>`).join('')}
+                            </ul>
+                        </div>
+                        <div class="candidate-links">
+                            <a href="${candidate.website}" target="_blank">Sitio web</a>
+                            <a href="${candidate.social.twitter}" target="_blank">Twitter</a>
+                            <a href="${candidate.social.facebook}" target="_blank">Facebook</a>
+                        </div>
+                    </div>
+                    <div class="candidate-stats">
+                        <div class="popularity">${candidate.popularity}%</div>
+                        <div class="trending ${candidate.trendUp ? '' : 'down'}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="${candidate.trendUp ? 'M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z' : 'M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z'}"/>
+                            </svg>
+                            ${candidate.trend}% (última semana)
+                        </div>
+                        <div class="history-chart">
+                            <canvas id="chart-${candidate.id}" height="60"></canvas>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(candidateElement);
+                
+                // Renderizar mini gráfico para cada candidato
+                renderMiniChart(candidate);
+            });
+        }
+
+        // Función para renderizar mini gráficos
+        function renderMiniChart(candidate) {
+            const canvas = document.getElementById(`chart-${candidate.id}`);
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width = 150;
+            const height = canvas.height = 60;
+            const padding = 10;
+            
+            // Calcular valores para el gráfico
+            const maxValue = Math.max(...candidate.history);
+            const minValue = Math.min(...candidate.history);
+            const range = maxValue - minValue;
+            const step = (width - padding * 2) / (candidate.history.length - 1);
+            
+            // Dibujar línea de fondo
+            ctx.beginPath();
+            ctx.moveTo(padding, height - padding);
+            ctx.lineTo(width - padding, height - padding);
+            ctx.strokeStyle = '#eee';
+            ctx.stroke();
+            
+            // Dibujar línea de tendencia
+            ctx.beginPath();
+            candidate.history.forEach((value, index) => {
+                const x = padding + (index * step);
+                const y = height - padding - ((value - minValue) / range * (height - padding * 2));
+                
+                if (index === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            });
+            
+            ctx.strokeStyle = candidate.trendUp ? '#2ecc71' : '#e74c3c';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        // Función para renderizar gráfico principal
+        function renderMainChart() {
+            const canvas = document.getElementById('nationalTrendChart');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width = canvas.offsetWidth;
+            const height = canvas.height = canvas.offsetHeight;
+            const padding = 30;
+            
+            // Datos simulados para el gráfico principal
+            const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'];
+            const values = [38, 42, 40, 45, 43, 47];
+            const maxValue = Math.max(...values);
+            const step = (width - padding * 2) / (months.length - 1);
+            
+            // Eje X
+            ctx.beginPath();
+            ctx.moveTo(padding, height - padding);
+            ctx.lineTo(width - padding, height - padding);
+            ctx.strokeStyle = '#ccc';
+            ctx.stroke();
+            
+            // Eje Y
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, height - padding);
+            ctx.stroke();
+            
+            // Etiquetas eje X
+            ctx.fillStyle = '#666';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+            months.forEach((month, index) => {
+                const x = padding + (index * step);
+                ctx.fillText(month, x, height - padding + 20);
+            });
+            
+            // Etiquetas eje Y
+            ctx.textAlign = 'right';
+            ctx.fillText('0%', padding - 10, height - padding);
+            ctx.fillText('25%', padding - 10, height - padding - (height - padding * 2) / 4);
+            ctx.fillText('50%', padding - 10, height - padding - (height - padding * 2) / 2);
+            ctx.fillText('75%', padding - 10, height - padding - (height - padding * 2) * 3/4);
+            ctx.fillText('100%', padding - 10, padding);
+            
+            // Línea de tendencia
+            ctx.beginPath();
+            values.forEach((value, index) => {
+                const x = padding + (index * step);
+                const y = height - padding - (value / maxValue * (height - padding * 2));
+                
+                if (index === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+                
+                // Puntos de datos
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, Math.PI * 2);
+                ctx.fillStyle = '#3498db';
+                ctx.fill();
+            });
+            
+            ctx.strokeStyle = '#3498db';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        // Función de búsqueda
+        function setupSearch() {
+            const searchInput = document.querySelector('.search-bar');
+            
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                const filteredCandidates = candidatesData.filter(candidate => 
+                    candidate.name.toLowerCase().includes(searchTerm) ||
+                    candidate.party.toLowerCase().includes(searchTerm) ||
+                    candidate.proposals.some(prop => prop.toLowerCase().includes(searchTerm))
+                );
+                
+                renderCandidates(filteredCandidates);
+            });
+        }
+
+        // Función para animar barras de progreso
+        function animateProgressBars() {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            
+            progressBars.forEach(bar => {
+                const targetWidth = bar.dataset.width || '0%';
+                bar.style.width = '0%';
+                
+                setTimeout(() => {
+                    bar.style.width = targetWidth;
+                }, 100);
+            });
+        }
+
+        // Función para simular actualización de datos
+        function simulateDataUpdates() {
+            setInterval(() => {
+                candidatesData.forEach(candidate => {
+                    // Simular pequeñas variaciones en los datos
+                    const variation = (Math.random() * 2) - 1; // Entre -1 y 1
+                    candidate.popularity = Math.max(1, Math.min(100, 
+                        parseFloat((candidate.popularity + variation).toFixed(1))));
+                    candidate.trend = Math.abs(variation).toFixed(1);
+                    candidate.trendUp = variation >= 0;
+                    
+                    // Mantener histórico
+                    candidate.history.shift();
+                    candidate.history.push(candidate.popularity);
+                });
+                
+                renderCandidates(candidatesData);
+            }, 15000); // Actualizar cada 15 segundos
+        }
+
+        // Inicialización de la aplicación
+        function initApp() {
+            renderCandidates(candidatesData);
+            renderMainChart();
+            setupSearch();
+            animateProgressBars();
+            simulateDataUpdates();
+        }
+
+        // Iniciar la aplicación cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
